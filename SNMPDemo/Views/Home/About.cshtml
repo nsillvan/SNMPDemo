@@ -1,7 +1,24 @@
 ﻿@{
     ViewBag.Title = "About";
 }
+
+@Scripts.Render("~/Scripts/jquery-ui.min-1.11.1.js")
+@Styles.Render("~/Content/themes/base/all.css")
+
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+
+<div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <input type='text' class="form-control" id='datetimepicker6' />
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker6').datetimepicker();
+            });
+        </script>
+    </div>
+</div>
