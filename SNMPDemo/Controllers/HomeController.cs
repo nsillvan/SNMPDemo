@@ -30,5 +30,14 @@ namespace SNMPDemo.Controllers
 
             return View();
         }
+
+        [ChildActionOnly]
+        public ActionResult _BasicControls(int id)
+        {
+            Device device = new Device();
+            device = db.Devices.Find(id);
+            return PartialView(device);
+        }
+
     }
 }

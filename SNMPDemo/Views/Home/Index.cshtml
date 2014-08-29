@@ -21,11 +21,7 @@
                     <h3 class="panel-title">@Html.DisplayFor(modelItem => item.IpAddress)</h3>
                 </div>
                 <div class="panel-body">
-                    <h4>Basic controls</h4>
-                    <p>
-                        <button type="button" class="btn btn-default">Turn On</button>
-                        <button type="button" class="btn btn-default">Turn Off</button>
-                    </p>
+                    @{Html.RenderAction("_BasicControls", "HomeController", item.ID);}
                     <h4>Temperature timer</h4>
                     <p>
                         <input type="text" class="ui-datepicker" />
