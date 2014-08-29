@@ -6,6 +6,26 @@
 
 <!-- jQuery UI CSS & JS -->
 @Scripts.Render("~/Scripts/jquery-ui.min-1.11.1.js")
+
+<script type="text/javascript">
+    function TurnOn(modelId) {
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("_BasicControls", "Home")',
+            //contentType: "application/json; charset=utf-8",
+            //dataType: "json",
+            //data: "modelId: " + modelId,
+            //traditional: true,
+            success: function () {
+                //alert('success');
+            },
+            error: function () {
+                //alert('failure');
+            }
+        })
+    };
+</script>
+
 @Styles.Render("~/Content/themes/base/all.css")
 
 <div class="page-header">
@@ -18,10 +38,11 @@
         <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">@Html.DisplayFor(modelItem => item.IpAddress)</h3>
+                    <h3 class="panel-title">@Html.DisplayFor(modelItem => item.IpAddress) @if (item.Description != null) { <text> - </text> @item.Description }</h3>
                 </div>
                 <div class="panel-body">
-                    @{Html.RenderAction("_BasicControls", "HomeController", item.ID);}
+                    @{Html.RenderAction("_BasicControls", "Home",  new { device = new SNMPDemo.Models.Device { ID=item.ID, IpAddress=item.IpAddress, Description=item.Description, CommunityString=item.CommunityString}});}
+                    <br />
                     <h4>Temperature timer</h4>
                     <p>
                         <input type="text" class="ui-datepicker" />
@@ -31,17 +52,3 @@
         </div>
     </div>
 }
-
-<div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <p>Date: <input type="text" id="datepicker"></p>
-
-            <script>
-                $(function () {
-                    $("#datepicker").datepicker();
-                });
-            </script>
-        </div>
-    </div>
-</div>

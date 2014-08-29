@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SNMPDemo.DAL;
 using SNMPDemo.Models;
-
+using SNMPDemo.SNMPTools;
 namespace SNMPDemo.Controllers
 {
     public class HomeController : Controller
@@ -31,13 +31,37 @@ namespace SNMPDemo.Controllers
             return View();
         }
 
-        [ChildActionOnly]
-        public ActionResult _BasicControls(int id)
+        public ActionResult _BasicControls(Device device)
         {
-            Device device = new Device();
-            device = db.Devices.Find(id);
+            //Device device = new Device();
+            //device = db.Devices.Find(id);
+            //return PartialView(device);
+            ViewBag.ID = device.ID;
             return PartialView(device);
         }
 
+        [HttpPost]
+        public ActionResult _BasicControls()
+        {
+            //Device device = new Device();
+            //device = db.Devices.Find(Request.Form["btn"]);
+
+            //String str = Request.Params["btn"];
+            //if (str == "Turn On")
+            //{
+            //    SNMPSet.SendSet();
+            //}
+            //if (str == "Turn Off")
+            //{
+                
+            //}
+
+            Device device = new Device();
+            device = db.Devices.Find(1);
+
+            SNMPSet.SendSet(device.IpAddress, device.CommunityString);
+
+            return PartialView();
+        }
     }
 }
