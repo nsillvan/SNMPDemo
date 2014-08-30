@@ -37,11 +37,13 @@ namespace SNMPDemo.Controllers
             //device = db.Devices.Find(id);
             //return PartialView(device);
             ViewBag.ID = device.ID;
+            ViewBag.IP = device.IpAddress;
+            ViewBag.CommunityString = device.CommunityString;
             return PartialView(device);
         }
 
         [HttpPost]
-        public ActionResult _BasicControls()
+        public ActionResult _BasicControls(string Ip, string CommunityString)
         {
             //Device device = new Device();
             //device = db.Devices.Find(Request.Form["btn"]);
@@ -56,10 +58,10 @@ namespace SNMPDemo.Controllers
                 
             //}
 
-            Device device = new Device();
-            device = db.Devices.Find(1);
-
-            SNMPSet.SendSet(device.IpAddress, device.CommunityString);
+            //Device device = new Device();
+            //device = db.Devices.Find(1);
+            //System.Diagnostics.Debug.WriteLine(Ip, CommunityString);
+            SNMPSet.SendSet(Ip, CommunityString);
 
             return PartialView();
         }

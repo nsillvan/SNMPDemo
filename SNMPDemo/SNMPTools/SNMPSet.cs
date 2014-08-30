@@ -13,7 +13,8 @@ namespace SNMPDemo.SNMPTools
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = ip + " " + communitystring;
+            //startInfo.Arguments = ip + " " + communitystring;
+            startInfo.Arguments = "/C ipconfig";
             process.StartInfo = startInfo;
             process.Start();
         }

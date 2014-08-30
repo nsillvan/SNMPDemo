@@ -5,25 +5,25 @@
 }
 
 <!-- jQuery UI CSS & JS -->
-@Scripts.Render("~/Scripts/jquery-ui.min-1.11.1.js")
+@*@Scripts.Render("~/Scripts/jquery-ui.min-1.11.1.js")*@
 
 <script type="text/javascript">
-    function TurnOn(modelId) {
+    function TurnOn(Ip, CommunityString) {
+        var details = { "Ip": Ip, "CommunityString": CommunityString }
         $.ajax({
             type: "post",
             url: '@Url.Action("_BasicControls", "Home")',
-            //contentType: "application/json; charset=utf-8",
-            //dataType: "json",
-            //data: "modelId: " + modelId,
-            //traditional: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(details),
             success: function () {
                 //alert('success');
             },
             error: function () {
                 //alert('failure');
             }
-        })
-    };
+        });
+    }
 </script>
 
 @Styles.Render("~/Content/themes/base/all.css")

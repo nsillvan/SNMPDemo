@@ -6,11 +6,7 @@
     {
     @*<button type="submit" class="btn btn-default" name="@Model.ID">Turn On</button>
     <button type="submit" class="btn btn-default" name="@Model.ID">Turn Off</button>*@
-        <input type="button" value="Turn On" class="btn btn-default" name="btn" onclick="TurnOn(@ViewBag.ID)" />
+        <input type="button" value="Turn On" class="btn btn-default" name="btn" onclick="TurnOn('@ViewBag.IP', '@ViewBag.CommunityString')" />
         <input type="button" value="Turn Off" class="btn btn-default" name="btn" />
     }
 </p>
-
-
-
-@*@using (Html.BeginForm("_BasicControls", "Home", FormMethod.Post, new { id = "FormId" }))*@
