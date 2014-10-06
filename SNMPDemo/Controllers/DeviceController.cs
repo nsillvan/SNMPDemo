@@ -47,7 +47,7 @@ namespace SNMPDemo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,IpAddress,CommunityString,Description")] Device device)
+        public ActionResult Create([Bind(Include = "ID,IpAddress,CommunityString,Description,showBasicControls,showPreHeaterTimer")] Device device)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace SNMPDemo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,IpAddress,CommunityString,Description")] Device device)
+        public ActionResult Edit([Bind(Include = "ID,IpAddress,CommunityString,Description,showBasicControls,showPreHeaterTimer")] Device device)
         {
             if (ModelState.IsValid)
             {

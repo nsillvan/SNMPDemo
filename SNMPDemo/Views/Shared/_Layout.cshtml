@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrapValidator.min.css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    
+
+    <!-- jQuery UI CSS & JS -->
+    <script type="text/javascript" src="/Scripts/moment.min.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap-datetimepicker.js"></script>
+    @Scripts.Render("~/Scripts/bootstrapValidator.js")
+    <link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
 
 </head>
 <body>
@@ -36,8 +46,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

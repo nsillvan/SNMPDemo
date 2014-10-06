@@ -20,6 +20,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.showBasicControls)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.showPreHeaterTimer)
+        </th>
         <th></th>
     </tr>
 
@@ -33,6 +39,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.showBasicControls)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.showPreHeaterTimer)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using SNMPDemo.DAL;
 using SNMPDemo.Models;
 using SNMPDemo.SNMPTools;
+using Quartz;
+using System.Globalization;
+
 namespace SNMPDemo.Controllers
 {
     public class HomeController : Controller
@@ -33,9 +36,6 @@ namespace SNMPDemo.Controllers
 
         public ActionResult _BasicControls(Device device)
         {
-            //Device device = new Device();
-            //device = db.Devices.Find(id);
-            //return PartialView(device);
             ViewBag.ID = device.ID;
             ViewBag.IP = device.IpAddress;
             ViewBag.CommunityString = device.CommunityString;
@@ -43,27 +43,77 @@ namespace SNMPDemo.Controllers
         }
 
         [HttpPost]
-        public ActionResult _BasicControls(string Ip, string CommunityString)
+        public ActionResult _BasicControls(string Ip, string CommunityString, string Action)
         {
-            //Device device = new Device();
-            //device = db.Devices.Find(Request.Form["btn"]);
+            //System.Diagnostics.Debug.WriteLine(Ip + CommunityString + Action);
 
-            //String str = Request.Params["btn"];
-            //if (str == "Turn On")
-            //{
-            //    SNMPSet.SendSet();
-            //}
-            //if (str == "Turn Off")
-            //{
-                
-            //}
-
-            //Device device = new Device();
-            //device = db.Devices.Find(1);
-            //System.Diagnostics.Debug.WriteLine(Ip, CommunityString);
-            SNMPSet.SendSet(Ip, CommunityString);
+            if (Action == "On")
+                SNMPSet.SendSet(Ip, CommunityString, Action);
+            if (Action == "Off")
+                SNMPSet.SendSet(Ip, CommunityString, Action);
 
             return PartialView();
+        }
+
+        public ActionResult _PreHeaterTimer(Device device)
+        {
+            if (MvcApplication.Scheduler.CheckExists(new JobKey("PreHeaterJob" + device.ID, "group1")))
+            {
+                //System.Diagnostics.Debug.WriteLine("true" + device.ID);
+                ViewBag.TimerActive = "true";
+
+                DateTimeOffset? dtoff = MvcApplication.Scheduler.GetTrigger(new TriggerKey("PreHeaterTrigger" + device.ID, "group1")).GetNextFireTimeUtc();
+                //DateTime dt = dtoff.Value.ToLocalTime();
+                //String s = dt.ToString("MM/dd/yyyy h:mm tt");
+                ViewBag.TimerTime = dtoff.Value.ToLocalTime().ToString("dddd, MMM dd yyyy HH:mm", new CultureInfo("en-US"));
+                //ViewBag.TimerTime = s;
+            }
+            else
+            {
+                //System.Diagnostics.Debug.WriteLine("false" + device.ID);
+                ViewBag.TimerActive = "false";
+            }
+
+            ViewBag.ID = device.ID;
+            ViewBag.IP = device.IpAddress;
+            ViewBag.CommunityString = device.CommunityString;
+
+            return PartialView(device);
+        }
+
+        [HttpPost]
+        public ActionResult _PreHeaterTimer(string Ip, string CommunityString, string DateData, string DeviceId)
+        {
+            
+
+            if (MvcApplication.Scheduler.CheckExists(new JobKey("PreHeaterJob" + DeviceId, "group1")))
+            {
+                //System.Diagnostics.Debug.WriteLine("true " + DeviceId);
+                ViewBag.TimerActive = "true";
+
+                DateTimeOffset? dtoff = MvcApplication.Scheduler.GetTrigger(new TriggerKey("PreHeaterTrigger" + DeviceId, "group1")).GetNextFireTimeUtc();
+                //DateTime dt = dtoff.Value.ToLocalTime();
+                //String s = dt.ToString();
+                ViewBag.TimerTime = dtoff.Value.ToLocalTime().ToString("dddd, MMM dd yyyy HH:mm", new CultureInfo("en-US"));
+            }
+            else
+            {
+                //System.Diagnostics.Debug.WriteLine("false" + DeviceId);
+                ViewBag.TimerActive = "false";
+            }
+
+            //System.Diagnostics.Debug.WriteLine(Action);
+            JobManager.SetTimer(DateData, DeviceId);
+
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult _CancelPreHeaterTimer(string DeviceId, string TimerActive)
+        {
+            MvcApplication.Scheduler.DeleteJob(new JobKey("PreHeaterJob" + DeviceId, "group1"));
+
+            return RedirectToAction("_PreHeaterTimer");
         }
     }
 }

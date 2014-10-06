@@ -1,0 +1,66 @@
+﻿
+@model SNMPDemo.Models.Device
+
+<h4>Smart Pre-Heater Timer</h4>
+
+@*@if (ViewBag.TimerActive == "false")*@
+
+    <div id="preheatercontainerset@(ViewBag.ID)" @{if (ViewBag.TimerActive == "true") { <text> hidden="hidden" </text> }}>
+        @using (Html.BeginForm("_PreHeaterTimer", "Home", FormMethod.Post, new { id = "PreHeaterTimerForm" }))
+        {
+            <div class="container">
+                <div class="row">
+                    <div class='col-sm-4'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker@(ViewBag.ID)'>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                <input type='text' id="datedata@(ViewBag.ID)" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+
+                        $(function () {
+                            $('#datetimepicker@(ViewBag.ID)').datetimepicker();
+                        });
+
+                        //$('#PreHeaterTimerForm').bootstrapValidator({
+                        //    fields: {
+
+                        //        datetimePicker: {
+                        //            validators: {
+                        //                notEmpty: {
+                        //                    message: 'The date is required and cannot be empty'
+                        //                },
+                        //                date: {
+                        //                    format: 'MM/DD/YYYY h:m A'
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //});
+
+                    </script>
+                </div>
+                <input type="button" value="Set timer" class="btn btn-default" name="timer@(ViewBag.ID)" id="timer@(ViewBag.ID)"
+                       onclick="SetTimer('@ViewBag.IP', '@ViewBag.CommunityString', $('#datedata@(ViewBag.ID)').val(), '@ViewBag.ID')" />
+            </div>
+        }
+    </div>
+
+
+@*@if (ViewBag.TimerActive == "true")*@
+
+    <div id="preheatercontainercancel@(ViewBag.ID)" @{if (ViewBag.TimerActive == "false") { <text> hidden="hidden"</text>}}>
+    @using (Html.BeginForm())
+    {
+        <div>
+            <p id="preheatertimersetat@(ViewBag.ID)">Timer set to run at @(ViewBag.TimerTime)</p><br />
+            <input type="button" value="Cancel timer" class="btn btn-default" name="canceltimer@(ViewBag.ID)" id="canceltimer@(ViewBag.ID)"
+                   onclick="CancelTimer('@ViewBag.ID')" />
+        </div>
+    }
+</div>
+

@@ -4,9 +4,7 @@
 <p>
     @using (Html.BeginForm())
     {
-    @*<button type="submit" class="btn btn-default" name="@Model.ID">Turn On</button>
-    <button type="submit" class="btn btn-default" name="@Model.ID">Turn Off</button>*@
-        <input type="button" value="Turn On" class="btn btn-default" name="btn" onclick="TurnOn('@ViewBag.IP', '@ViewBag.CommunityString')" />
-        <input type="button" value="Turn Off" class="btn btn-default" name="btn" />
+        <input type="button" value="Turn On" class="btn btn-default" name="btn" onclick="Turn('@ViewBag.IP', '@ViewBag.CommunityString', 'On')" />
+        <input type="button" value="Turn Off" class="btn btn-default" name="btn" onclick="Turn('@ViewBag.IP', '@ViewBag.CommunityString', 'Off')" />
     }
 </p>

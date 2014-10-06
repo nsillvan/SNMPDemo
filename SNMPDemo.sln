@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNMPDemo", "SNMPDemo\SNMPDe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{389C43CB-E8EE-4A5C-B12F-23CEE32283F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTest", "TimeTest\TimeTest.csproj", "{B158552B-8562-4765-9C08-1A7F592BC157}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperatureTest", "TemperatureTest\TemperatureTest.csproj", "{51A697D2-EBD1-4F85-89CE-1ED66F040976}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{389C43CB-E8EE-4A5C-B12F-23CEE32283F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{389C43CB-E8EE-4A5C-B12F-23CEE32283F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{389C43CB-E8EE-4A5C-B12F-23CEE32283F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B158552B-8562-4765-9C08-1A7F592BC157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B158552B-8562-4765-9C08-1A7F592BC157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B158552B-8562-4765-9C08-1A7F592BC157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B158552B-8562-4765-9C08-1A7F592BC157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51A697D2-EBD1-4F85-89CE-1ED66F040976}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51A697D2-EBD1-4F85-89CE-1ED66F040976}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51A697D2-EBD1-4F85-89CE-1ED66F040976}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51A697D2-EBD1-4F85-89CE-1ED66F040976}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

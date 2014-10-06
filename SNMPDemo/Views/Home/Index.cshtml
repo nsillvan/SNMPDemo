@@ -4,12 +4,9 @@
     ViewBag.Title = "Home Page";
 }
 
-<!-- jQuery UI CSS & JS -->
-@*@Scripts.Render("~/Scripts/jquery-ui.min-1.11.1.js")*@
-
 <script type="text/javascript">
-    function TurnOn(Ip, CommunityString) {
-        var details = { "Ip": Ip, "CommunityString": CommunityString }
+    function Turn(Ip, CommunityString, Action) {
+        var details = { "Ip": Ip, "CommunityString": CommunityString, "Action": Action }
         $.ajax({
             type: "post",
             url: '@Url.Action("_BasicControls", "Home")',
@@ -26,6 +23,70 @@
     }
 </script>
 
+<script type="text/javascript">
+    function SetTimer(Ip, CommunityString, DateData, DeviceId) {
+
+        $('#preheatercontainerset' + DeviceId).prop('hidden', 'hidden');
+        $('#preheatercontainercancel' + DeviceId).prop('hidden', "");
+        $('#preheatertimersetat' + DeviceId).replaceWith("Timer set to run at " + DateData);
+
+        var details = { "Ip": Ip, "CommunityString": CommunityString, "DateData": DateData, "DeviceId": DeviceId }
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("_PreHeaterTimer", "Home")',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(details),
+            success: function () {
+                //alert('success');
+            },
+            error: function () {
+                //alert('failure');
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function CancelTimer(DeviceId) {
+
+        $('#preheatercontainerset' + DeviceId).prop('hidden', '');
+        $('#preheatercontainercancel' + DeviceId).prop('hidden', 'hidden');
+        $('#datedata' + DeviceId).prop('value', '');
+
+        var details = { "DeviceId": DeviceId, "TimerActive": "false" }
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("_CancelPreHeaterTimer", "Home")',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(details),
+            success: function () {
+                //alert('success');
+            },
+            error: function () {
+                //alert('failure');
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function Testi(Muuttuja) {
+        alert(Muuttuja);
+    }
+</script>
+
+
+<style type="text/css">
+    #PreHeaterTimerForm .has-feedback .form-control-feedback {
+        top: 0;
+        right: -15px;
+    }
+</style>
+
+
+
 @Styles.Render("~/Content/themes/base/all.css")
 
 <div class="page-header">
@@ -38,15 +99,19 @@
         <div class="col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">@Html.DisplayFor(modelItem => item.IpAddress) @if (item.Description != null) { <text> - </text> @item.Description }</h3>
+                    <h3 class="panel-title">@Html.DisplayFor(modelItem => item.IpAddress) @if (item.Description != null)
+                                                                                          { <text> - </text> @item.Description }</h3>
                 </div>
                 <div class="panel-body">
-                    @{Html.RenderAction("_BasicControls", "Home",  new { device = new SNMPDemo.Models.Device { ID=item.ID, IpAddress=item.IpAddress, Description=item.Description, CommunityString=item.CommunityString}});}
+                    @if (item.showBasicControls) {
+                    Html.RenderAction("_BasicControls", "Home", new { device = new SNMPDemo.Models.Device { 
+                          ID = item.ID, IpAddress = item.IpAddress, Description = item.Description, CommunityString = item.CommunityString } });
                     <br />
-                    <h4>Temperature timer</h4>
-                    <p>
-                        <input type="text" class="ui-datepicker" />
-                    </p>
+                    }
+                    @if (item.showPreHeaterTimer) {
+                    Html.RenderAction("_PreHeaterTimer", "Home", new { device = new SNMPDemo.Models.Device { 
+                          ID = item.ID, IpAddress = item.IpAddress, Description = item.Description, CommunityString = item.CommunityString } });
+                    }
                 </div>
             </div>
         </div>
